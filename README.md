@@ -58,7 +58,7 @@ In the last step I combined the two binary thresholds (line 51-52)
 
 #### 4. Apply a perspective transform to rectify binary image ("birds-eye-view")
 
-The code for my perspective transform includes a function called warper. The warper() function takes an image (img) as input. First, I had to define source (src) and destination (dst) points. I chose to hardcode the source and destination points in the following manner:
+The code for my perspective transform includes a function called warper. The `warper()` function takes an image (img) as input. First, I had to define source (src) and destination (dst) points. I chose to hardcode the source and destination points in the following manner:
 
 
 ```python
