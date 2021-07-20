@@ -142,7 +142,7 @@ With function cv.putText() I added the information I got out of point 6 (9th cel
 #### Pipeline (video) 
 
 The video result (project_video_s_thresh_100-200full.mp4 ) is stored in the test_videos_output folder.
-For video analyzing I changed the code (line 213 – 224 in “Project 2 - Advanced Lane Finding version 2.ipynb”). My original code (first submission) could not find the right lane line exactly. Therefor I introduced the global variables “last_good_left_fitx” and “last_good_left_fitx”. 
+For video analyzing I changed the code (line 213 – 224 in “Project 2 - Advanced Lane Finding version 2.ipynb”). My original code could not find the right lane line exactly. Therefor I introduced the global variables “last_good_left_fitx” and “last_good_left_fitx”. 
 The lane width of 3.7 meter corresponds to roundabout 600 pixels in the image / frame. 
 So if every value met the condition right_fitx > left_fitx + 500,  the algorithm stored  all the current  values of left_fitx in last_good_left_fitx and all the current values of right_fitx in last_good_right_fitx.
 If the condition right_fitx > left_fitx + 500 is not met, right_fitx and left_fitx take on the last stored values last_good_right_fitx and last_good_left_fitx.
