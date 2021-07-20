@@ -144,7 +144,7 @@ The lane width of 3.7 meter corresponds to roundabout 600 pixels in the image / 
 So if every value met the condition `right_fitx > left_fitx + 500`,  the algorithm stored  all the current  values of `left_fitx` in `last_good_left_fitx` and all the current values of `right_fitx` in `last_good_right_fitx`.
 If the condition `right_fitx > left_fitx + 500` is not met, `right_fitx` and `left_fitx` take on the last stored values `last_good_right_fitx` and `last_good_left_fitx`.
 
-Discussion
+### Discussion
 My algorithm with the condition `right_fitx > left_fitx + 500` (described in the previous chapter) works well if the problem with lane line finding applies only to a few frames.  But I fear this approach becomes more critical the more frames there are in which the line is not detected.
 Another weak point of this approach is when the track width becomes significantly narrower. A corresponding adjustment of the condition is required here.
 
