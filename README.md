@@ -75,7 +75,6 @@ dst = np.float32([
 [margin,0],                          # left top
 [img.shape[1]-margin,0],             # right top
 [img.shape[1]-margin,img.shape[0]]]) # right bottom
-
 ```
 
 With the source and destination points and the resulting matrix M out of the `cv2.getPerspectiveTransform(src, dst)` function, the image can be warped by using the `cv2.warpPerspective()` function.
@@ -113,19 +112,17 @@ The algorithm is implemented in the `measure_curvature_real()` function in the 7
 Left Curverad:  5397.22902377388 m Right Curverad:  22556.19559340398 m
 Lane Curverad:  13976.712308588929 m
 Vehicle position with respect to lane center:  0.011333546926740415 m
-
 ```
 
 
 The vehicle position is calculated by the conversion factor too. Taking into account that the center of the image corresponds with the center of the vehicle, the distance from the center of the image to the center of the lane corresponds with the vehicle offset (7th cell line 68 – 74).
 
 ```
-Vehicle position with respect to lane center:  0.0113335469268 m
-    
+Vehicle position with respect to lane center:  0.0113335469268 m   
 ```
 
 #### 7. Warp the detected lane boundaries back onto the original image
-I warped the two lines back in the same way shown under point 4. Only difference is that source points and destination points change their values, so that we use in the cv2.warpPerspective() function the inverse Matrix Minv.
+I warped the two lines back in the same way shown under point 4. Only difference is that source points and destination points change their values, so that we use in the `cv2.warpPerspective()` function the inverse Matrix Minv.
 Here is the result on a straight_lines2 testimage:
 
 ![alt text][image7]
@@ -134,7 +131,7 @@ Here is the result on a straight_lines2 testimage:
 
 #### 8. Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position
 
-With function cv.putText() I added the information I got out of point 6 (9th cell), taking into account whether the vehicle is on the left or right of the center of the lane.
+With function `cv.putText()` I added the information I got out of point 6 (9th cell), taking into account whether the vehicle is on the left or right of the center of the lane.
 
 ![alt text][image8]
 
@@ -142,14 +139,14 @@ With function cv.putText() I added the information I got out of point 6 (9th cel
 #### Pipeline (video) 
 
 The video result (project_video_s_thresh_100-200full.mp4 ) is stored in the test_videos_output folder.
-For video analyzing I changed the code (line 213 – 224 in “Project 2 - Advanced Lane Finding version 2.ipynb”). My original code could not find the right lane line exactly. Therefor I introduced the global variables “last_good_left_fitx” and “last_good_left_fitx”. 
+For video analyzing I changed the code (line 213 – 224 in “Project 2 - Advanced Lane Finding version 2.ipynb”). My original code could not find the right lane line exactly. Therefor I introduced the global variables `last_good_left_fitx` and `last_good_left_fitx`. 
 The lane width of 3.7 meter corresponds to roundabout 600 pixels in the image / frame. 
-So if every value met the condition right_fitx > left_fitx + 500,  the algorithm stored  all the current  values of left_fitx in last_good_left_fitx and all the current values of right_fitx in last_good_right_fitx.
-If the condition right_fitx > left_fitx + 500 is not met, right_fitx and left_fitx take on the last stored values last_good_right_fitx and last_good_left_fitx.
+So if every value met the condition `right_fitx > left_fitx + 500`,  the algorithm stored  all the current  values of `left_fitx` in `last_good_left_fitx` and all the current values of `right_fitx` in `last_good_right_fitx`.
+If the condition `right_fitx > left_fitx + 500` is not met, `right_fitx` and `left_fitx` take on the last stored values `last_good_right_fitx` and `last_good_left_fitx`.
 
 Discussion
-My algorithm with the condition right_fitx > left_fitx + 500 (described in the previous chapter) works well if the problem with lane line finding applies only to a few frames.  But I fear this approach becomes more critical the more frames there are in which the line is not detected.
+My algorithm with the condition `right_fitx > left_fitx + 500` (described in the previous chapter) works well if the problem with lane line finding applies only to a few frames.  But I fear this approach becomes more critical the more frames there are in which the line is not detected.
 Another weak point of this approach is when the track width becomes significantly narrower. A corresponding adjustment of the condition is required here.
 
-By using the cv2.warpPerspective()function I chose a y-value of 460 for the both ‘top’-points (left and right).  That seems like a good compromise to me. With smaller values in the direction of image.shape [0]/2, I fear that the transformation errors will be too large. I should also have problems here with very small curve radii, as the sliding-windows in the upper area of the warped binary image will no longer find any lane lines.
+By using the `cv2.warpPerspective()` function I chose a y-value of 460 for the both ‘top’-points (left and right).  That seems like a good compromise to me. With smaller values in the direction of image.shape [0]/2, I fear that the transformation errors will be too large. I should also have problems here with very small curve radii, as the sliding-windows in the upper area of the warped binary image will no longer find any lane lines.
 If the y-value is too high, I fear that there will be too great difficulties in detecting lane lines in the event of lane line gaps.
