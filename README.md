@@ -29,8 +29,8 @@
 #### 1.Compute the camera calibration matrix and distortion coefficients given a set of chessboard images
 
 The code for this step is contained in the first code cell of the IPython notebook located in "./CarND-Advanced-Lane-Lines/Project 2 – Advanced Lane Finding Single Steps.ipynb"
-I start by preparing "object points" which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image. Thus, objp is just a replicated array of coordinates and objpoints will be appended with a copy of it every time I successfully detect all chessboard corners in a test image. imgpoints will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.
-I then used the output objpoints and imgpoints to compute the camera calibration and distortion coefficients using the cv2.calibrateCamera() function. I applied this distortion correction to the test image using the cv2.undistort() function and obtained this result:
+I start by preparing "object points" which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image. Thus, `objp` is just a replicated array of coordinates and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image. `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.
+I then used the output `objpoints` and `imgpoints` to compute the camera calibration and distortion coefficients using the `cv2.calibrateCamera()` function. I applied this distortion correction to the test image using the `cv2.undistort()` function and obtained this result:
 
 ![alt text][image1]
 
@@ -41,7 +41,7 @@ The procedure described above under point 1 led to the following result:
 
 ![alt text][image2]
 
-All the other undistorted images of calibratrion1- calibration 20 are stored as undist**.png in the output_images folder.
+All the other undistorted images of "calibratrion1- calibration 20" are stored as undist**.png in the output_images folder.
 
 #### 3. Use color transforms, gradients, etc., to create a thresholded binary image
 
@@ -78,7 +78,7 @@ dst = np.float32([
 
 ```
 
-With the source and destination points and the resulting matrix M out of the cv2.getPerspectiveTransform(src, dst) function, the image can be warped by using the cv2.warpPerspective() function.
+With the source and destination points and the resulting matrix M out of the `cv2.getPerspectiveTransform(src, dst)` function, the image can be warped by using the `cv2.warpPerspective()` function.
 I verified that my perspective transform was working as expected by drawing the src and dst points onto a binary test image and its warped counterpart to verify that the lines appear parallel in the warped image. Here you can see the result:
 
 ![alt text][image4]
@@ -99,7 +99,7 @@ The next picture is a visualization of the sliding windows with both fitting lin
 
 ##### 5.2 Search from Prior
 
-Because of inefficiency of this “blind search”, I used the search_around_poly() function. The functions search for pixels just around a margin around the previous found lines.
+Because of inefficiency of this “blind search”, I used the `search_around_poly()` function. The functions search for pixels just around a margin around the previous found lines.
 
 ![alt text][image6]
 
@@ -107,9 +107,9 @@ Because of inefficiency of this “blind search”, I used the search_around_pol
 
 #### 6. Determine the curvature of the lane and vehicle position with respect to center
 
-The algorithm is implemented in the measure_curvature_real() function in the 7th cell. First it defines the conversion factor from pixels to the real scale. Line 49 and 50 calculate the radius of both lines found under point 5. Both curverads are half half weighted combined to the Lane Curverad value:
+The algorithm is implemented in the `measure_curvature_real()` function in the 7th cell. First it defines the conversion factor from pixels to the real scale. Line 49 and 50 calculate the radius of both lines found under point 5. Both curverads are half half weighted combined to the Lane Curverad value:
 
-```python
+```
 Left Curverad:  5397.22902377388 m Right Curverad:  22556.19559340398 m
 Lane Curverad:  13976.712308588929 m
 Vehicle position with respect to lane center:  0.011333546926740415 m
@@ -119,7 +119,7 @@ Vehicle position with respect to lane center:  0.011333546926740415 m
 
 The vehicle position is calculated by the conversion factor too. Taking into account that the center of the image corresponds with the center of the vehicle, the distance from the center of the image to the center of the lane corresponds with the vehicle offset (7th cell line 68 – 74).
 
-```python
+```
 Vehicle position with respect to lane center:  0.0113335469268 m
     
 ```
