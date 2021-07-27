@@ -2,13 +2,13 @@
 
 **The goals / steps of this project are the following:**
 
-* Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.
-* Apply a distortion correction to raw images.
-* Use color transforms, gradients, etc., to create a thresholded binary image.
-* Apply a perspective transform to rectify binary image ("birds-eye view").
-* Detect lane pixels and fit to find the lane boundary.
-* Determine the curvature of the lane and vehicle position with respect to center.
-* Warp the detected lane boundaries back onto the original image.
+* Computing the camera calibration matrix and distortion coefficients given a set of chessboard images.
+* Applying a distortion correction to raw images.
+* Using color transforms, gradients, etc., to create a thresholded binary image.
+* Applying a perspective transform to rectify binary image ("birds-eye view").
+* Detecting lane pixels and fit to find the lane boundary.
+* Determining the curvature of the lane and vehicle position with respect to center.
+* Warping the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
 [//]: # (Image References)
@@ -24,9 +24,8 @@
 
 
 
-## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
 
-#### 1.Compute the camera calibration matrix and distortion coefficients given a set of chessboard images
+#### 1. Compute the camera calibration matrix and distortion coefficients given a set of chessboard images
 
 The code for this step is contained in the first code cell of the IPython notebook located in "./CarND-Advanced-Lane-Lines/Project 2 – Advanced Lane Finding Single Steps.ipynb"
 I start by preparing "object points" which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image. Thus, `objp` is just a replicated array of coordinates and `objpoints` will be appended with a copy of it every time I successfully detect all chessboard corners in a test image. `imgpoints` will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.
